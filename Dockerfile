@@ -1,20 +1,17 @@
-# Use the official Python base image
-FROM python:3.10.9
+FROM python:3.9-slim
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt /app/requirements.txt
+COPY requirements.txt .
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install scikit-learn==1.4.2
 
-# Copy the rest of the application code
-COPY . /app
+COPY . .
 
-# Expose the port the app runs on
+RUN pip install gunicorn
+
 EXPOSE 5000
 
-# Set the default command to run the Flask app
-CMD ["python", "app.py"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "build_api:app"]

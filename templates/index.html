@@ -3,46 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Prediction</title>
+    <title>Insurance Cost Prediction</title>
     <style>
-        .form-group {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
+        /* Add background color and text color for the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray */
+            color: #333; /* Dark gray for readability */
+            text-align: center;
+            padding: 20px;
         }
+
+        /* Style the form and its elements */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
         label {
-            width: 60px;
-            margin-right: 10px;
+            font-weight: bold;
         }
-        input[type="number"] {
-            width: 200px;
-            padding: 5px;
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
+
         input[type="submit"] {
-            padding: 5px 10px;
-            margin-top: 10px;
+            background-color: #007bff; /* Blue */
+            color: white;
             cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        h1 {
+            color: #0056b3;
+        }
+
+        /* Add styling for the result text */
+        .result {
+            background-color: #e6f7ff; /* Light blue for result area */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #004085; /* Darker blue */
+        }
+
+        /* Image styling */
+        .banner {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
-    <h2>Loan Payback Prediction App</h2>
+    <h1>Insurance Cost Prediction App </h1>
+    <p>Enter your information to get an estimated insurance cost prediction.</p>
+    
+    <!-- Include an image for visual appeal (replace 'image.jpg' with the path or URL of your image) -->
+    <img src="https://via.placeholder.com/600x200.png?text=Insurance+Prediction+App" alt="Insurance Banner" class="banner">
+
     <form action="/predict" method="POST">
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" id="age" name="age" required>
-        </div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+        
+        <label for="sex">Sex:</label>
+        <select id="sex" name="sex" required>
+            <option value="">Select</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select><br><br>
+        
+        <label for="bmi">BMI:</label>
+        <input type="number" step="any" id="bmi" name="bmi" required><br><br>
+        
+        <label for="children">Number of Children:</label>
+        <input type="number" id="children" name="children" required><br><br>
+        
+        <label for="smoker">Smoker:</label>
+        <select id="smoker" name="smoker" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+        
+        <label for="region">Region:</label>
+        <select id="region" name="region" required>
+            <option value="">Select Region</option>
+            <option value="northwest">Northwest</option>
+            <option value="southeast">Southeast</option>
+            <option value="southwest">Southwest</option>
+        </select><br><br>
 
-        <div class="form-group">
-            <label for="salary">Salary:</label>
-            <input type="number" id="salary" name="salary" required>
-        </div>
-
-        <input type="submit" value="Predict">
+        <input type="submit" value="Get Prediction">
     </form>
 
-     {% if prediction_text %}
-        <h3>{{ prediction_text }}</h3>
-    {% endif %} 
+    {% if prediction %}
+        <div class="result">
+            <h2>Predicted Insurance Cost: ${{ prediction }}</h2>
+        </div>
+    {% endif %}
 </body>
 </html>
